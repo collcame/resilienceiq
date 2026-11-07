@@ -1,6 +1,5 @@
-
 import axios from "axios";
-import { isMockMode } from "./accountService";
+import { apiConfig } from "../config/apiConfig";
 
 export function calculateMockSimulation(account, inputs) {
   const {
@@ -49,7 +48,7 @@ export async function simulateShock(account, inputs) {
     throw new Error("Please select an account first.");
   }
 
-  if (isMockMode) {
+  if (apiConfig.mockSimulation) {
     return calculateMockSimulation(account, inputs);
   }
 

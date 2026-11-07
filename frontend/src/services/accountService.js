@@ -1,8 +1,7 @@
 
 import axios from "axios";
 import { mockAccounts } from "./mockAccounts";
-
-const USE_MOCK_DATA = import.meta.env.VITE_USE_MOCK_DATA !== "false";
+import { apiConfig } from "../config/apiConfig";
 
 export async function getAccount(accountId) {
   const id = Number(accountId);
@@ -11,7 +10,9 @@ export async function getAccount(accountId) {
     throw new Error("Please enter a valid account ID.");
   }
 
-  if (USE_MOCK_DATA) {
+  // Use illustrative customer profiles while Member 2
+  // develops the real banking-data API.
+  if (apiConfig.mockAccounts) {
     const account = mockAccounts[id];
 
     if (!account) {
@@ -21,8 +22,10 @@ export async function getAccount(accountId) {
     return { ...account };
   }
 
+  // Fetch the actual customer profile from FastAPI.
   try {
     const response = await axios.get(`/api/accounts/${id}`);
+
     return response.data;
   } catch (error) {
     if (error.response?.status === 404) {
@@ -35,4 +38,5 @@ export async function getAccount(accountId) {
   }
 }
 
-export const isMockMode = USE_MOCK_DATA;
+// Retain this export for compatibility with existing components.
+export const isMockMode = apiConfig.mockAccounts;
