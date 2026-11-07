@@ -625,3 +625,169 @@ body {
     padding: 20px;
   }
 }
+
+
+/* Personalized Action Plan */
+
+.plan-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  margin-top: 35px;
+  padding: 65px 25px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+}
+
+.plan-empty-state svg {
+  color: #f36b21;
+}
+
+.plan-empty-state h2 {
+  margin: 5px 0;
+}
+
+.plan-empty-state p {
+  max-width: 420px;
+  line-height: 1.6;
+}
+
+.plan-primary-link {
+  display: inline-block;
+  background: #f36b21;
+  color: #fff;
+  padding: 13px 20px;
+  border-radius: 9px;
+  text-decoration: none;
+  font-weight: 700;
+  margin-top: 10px;
+}
+
+.plan-account-banner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 24px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+  margin-bottom: 22px;
+}
+
+.plan-account-banner h2 {
+  margin: 8px 0;
+}
+
+.plan-account-banner p {
+  margin: 0;
+}
+
+.plan-account-banner a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #e85d13;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.plan-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.plan-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  padding: 24px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+}
+
+.plan-metric svg {
+  color: #f36b21;
+}
+
+.plan-metric span {
+  font-size: 13px;
+  color: #64748b;
+}
+
+.plan-metric strong {
+  font-size: 29px;
+  color: #17212f;
+}
+
+.plan-metric strong small {
+  font-size: 14px;
+  color: #64748b;
+}
+
+.plan-recommendations {
+  margin-top: 24px;
+  padding: 26px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+}
+
+.recommendations-heading {
+  display: flex;
+  gap: 13px;
+  align-items: flex-start;
+}
+
+.recommendations-heading > svg {
+  color: #f36b21;
+  flex-shrink: 0;
+}
+
+.recommendations-heading h3 {
+  margin: 0 0 8px;
+}
+
+.recommendations-heading p {
+  margin: 0;
+  font-size: 13px;
+}
+
+.recommendations-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 12px;
+  padding: 45px 20px;
+  margin-top: 24px;
+  background: #f8fafc;
+  border-radius: 12px;
+}
+
+.recommendations-placeholder svg {
+  color: #94a3b8;
+}
+
+.recommendations-placeholder p {
+  max-width: 480px;
+  line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+  .plan-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .plan-account-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
