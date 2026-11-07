@@ -13,6 +13,7 @@ import {
 import { useAccount } from "../context/AccountContext";
 import { useSimulation } from "../context/SimulationContext";
 import { simulateShock } from "../services/simulationService";
+import FinancialImpactChart from "../components/simulator/FinancialImpactChart";
 
 const formatMoney = (value) =>
   new Intl.NumberFormat("en-CA", {
@@ -354,6 +355,12 @@ export default function Simulator() {
           )}
         </div>
       </div>
+      {result && (
+        <FinancialImpactChart
+            account={account}
+            simulation={result}
+        />
+        )}
     </section>
   );
 }

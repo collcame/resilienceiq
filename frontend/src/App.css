@@ -791,3 +791,37 @@ body {
     align-items: flex-start;
   }
 }
+
+
+/* Financial Impact Chart */
+
+.financial-impact-chart {
+  margin-top: 24px;
+  padding: 26px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
+}
+
+.chart-heading h3 {
+  margin: 0 0 8px;
+  font-size: 19px;
+  color: #17212f;
+}
+
+.chart-heading p {
+  margin: 0 0 24px;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.chart-container {
+  width: 100%;
+  min-width: 0;
+}
+
+@media (max-width: 600px) {
+  .financial-impact-chart {
+    padding: 16px;
+  }
+}
