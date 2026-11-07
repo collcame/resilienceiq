@@ -8,35 +8,26 @@ import {
   Receipt,
   Landmark,
 } from "lucide-react";
+
 import MetricCard from "../components/dashboard/MetricCard";
-import { mockAccounts } from "../services/mockAccounts";
+import { useAccount } from "../context/AccountContext";
 
 const formatMoney = (value) =>
   new Intl.NumberFormat("en-CA", {
     style: "currency",
     currency: "CAD",
     maximumFractionDigits: 0,
-  }).format(value);
+  }).format(value ?? 0);
 
 export default function Overview() {
-  const [accountInput, setAccountInput] = useState("1234");
-  const [account, setAccount] = useState(mockAccounts[1234]);
-  const [error, setError] = useState("");
+  const { account, accountId, loading, error, loadAccount, isMockMode } =
+    useAccount();
 
-  function loadAccount(event) {
+  const [accountInput, setAccountInput] = useState(accountId || "1234");
+
+  async function handleLookup(event) {
     event.preventDefault();
-
-    const id = Number(accountInput);
-    const selected = mockAccounts[id];
-
-    if (!selected) {
-      setError("Account not found in the demo dataset.");
-      setAccount(null);
-      return;
-    }
-
-    setAccount(selected);
-    setError("");
+    await loadAccount(accountInput);
   }
 
   return (
@@ -48,7 +39,7 @@ export default function Overview() {
         </p>
       </div>
 
-      <form className="account-search" onSubmit={loadAccount}>
+      <form className="account-search" onSubmit={handleLookup}>
         <div>
           <label htmlFor="account-id">Customer Account ID</label>
           <input
@@ -61,10 +52,23 @@ export default function Overview() {
             required
           />
         </div>
-        <button type="submit">Load Account</button>
+
+        <button type="submit" disabled={loading}>
+          {loading ? "Loading..." : "Load Account"}
+        </button>
       </form>
 
-      {error && <p className="account-error" role="alert">{error}</p>}
+      {isMockMode && (
+        <p className="demo-data-notice">
+          Demo mode: displaying illustrative customer profiles.
+        </p>
+      )}
+
+      {error && (
+        <p className="account-error" role="alert">
+          {error}
+        </p>
+      )}
 
       {account && (
         <>
@@ -74,6 +78,7 @@ export default function Overview() {
               <h2>Account #{account.account_id}</h2>
               <p>Monthly financial baseline</p>
             </div>
+
             <span className="account-status">Profile loaded</span>
           </div>
 
@@ -84,12 +89,14 @@ export default function Overview() {
               description="Typical monthly money in"
               icon={ArrowDownCircle}
             />
+
             <MetricCard
               label="Monthly Spending"
               value={formatMoney(account.typical_spending)}
               description="Typical monthly money out"
               icon={ArrowUpCircle}
             />
+
             <MetricCard
               label="Cash Buffer"
               value={formatMoney(account.buffer)}
@@ -97,6 +104,7 @@ export default function Overview() {
               icon={Wallet}
               accent
             />
+
             <MetricCard
               label="Monthly Cash Flow"
               value={formatMoney(account.monthly_cashflow)}
@@ -107,7 +115,9 @@ export default function Overview() {
 
           <div className="breakdown-card">
             <h3>Monthly Expense Breakdown</h3>
-            <p>Additional inputs used in the financial shock simulator.</p>
+            <p>
+              Additional inputs used in the financial shock simulator.
+            </p>
 
             <div className="breakdown-grid">
               <div className="breakdown-item">
@@ -115,11 +125,13 @@ export default function Overview() {
                 <span>Fixed Costs</span>
                 <strong>{formatMoney(account.fixed_costs)}</strong>
               </div>
+
               <div className="breakdown-item">
                 <Landmark size={20} />
                 <span>Household Bills</span>
                 <strong>{formatMoney(account.household_bills)}</strong>
               </div>
+
               <div className="breakdown-item">
                 <Wallet size={20} />
                 <span>Loan Payment</span>
