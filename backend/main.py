@@ -1,7 +1,5 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-import simulation
-import planning  # 1. Import your new planning module
 
 app = FastAPI(title="ResilienceIQ API", version="0.1.0")
 
@@ -19,5 +17,8 @@ app.include_router(simulation.router)
 app.include_router(planning.router)
 
 @app.get("/api/health")
-def health_check():
-    return {"status": "healthy"}
+def health():
+    return {
+        "status": "ok",
+        "application": "ResilienceIQ"
+    }
