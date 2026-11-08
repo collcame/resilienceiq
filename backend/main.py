@@ -1,8 +1,9 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-import simulation
-import planning
-import insights
+from . import simulation
+from . import planning
+from . import insights
+from . import accounts
 
 app = FastAPI(title="ResilienceIQ API", version="0.1.0")
 
@@ -18,6 +19,8 @@ app.add_middleware(
 # 2. Include routers
 app.include_router(simulation.router)
 app.include_router(planning.router)
+app.include_router(insights.router)
+app.include_router(accounts.router)
 
 @app.get("/api/health")
 def health():

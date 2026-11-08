@@ -1,4 +1,3 @@
-
 import axios from "axios";
 import { mockAccounts } from "./mockAccounts";
 import { apiConfig } from "../config/apiConfig";
@@ -10,33 +9,31 @@ export async function getAccount(accountId) {
     throw new Error("Please enter a valid account ID.");
   }
 
-  // Use illustrative customer profiles while Member 2
-  // develops the real banking-data API.
   if (apiConfig.mockAccounts) {
     const account = mockAccounts[id];
-
     if (!account) {
       throw new Error("Account not found in the demo dataset.");
     }
-
     return { ...account };
   }
 
-  // Fetch the actual customer profile from FastAPI.
   try {
-    const response = await axios.get(`/api/accounts/${id}`);
-
+    const response = await axios.get(`http://localhost:8000/api/accounts/${id}`);
     return response.data;
   } catch (error) {
-    if (error.response?.status === 404) {
-      throw new Error(`Account ${id} was not found.`);
-    }
+    // Log the exact error to your browser console (Press F12 -> Console)
+    console.error("FULL AXIOS ERROR:", error);
 
-    throw new Error(
-      "Unable to load the account. Please check the backend connection."
-    );
+    if (error.response) {
+      // The server responded with a status code outside of 2xx
+      throw new Error(`Server Error (${error.response.status}): ${error.response.data?.detail || "Unknown error"}`);
+    } else if (error.request) {
+      // The request was made but no response was received (Backend is down or blocked by CORS)
+      throw new Error("No response from backend. Make sure FastAPI is running on port 8000.");
+    } else {
+      throw new Error(`Request setup error: ${error.message}`);
+    }
   }
 }
 
-// Retain this export for compatibility with existing components.
 export const isMockMode = apiConfig.mockAccounts;

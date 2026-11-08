@@ -9,16 +9,16 @@ const readFlag = (value, fallback) => {
 export const apiConfig = {
   mockAccounts: readFlag(
     import.meta.env.VITE_MOCK_ACCOUNTS,
-    true
+    false
   ),
 
   mockSimulation: readFlag(
     import.meta.env.VITE_MOCK_SIMULATION,
-    true
+    false
   ),
 
   mockPlanning: readFlag(
     import.meta.env.VITE_MOCK_PLANNING,
-    true
+    false
   ),
 };
