@@ -131,7 +131,7 @@ export default function Insights() {
         <p>Breakdown of customer resilience levels based on available cash buffer versus monthly spending.</p>
 
         <div className="chart-container" style={{ marginTop: "20px" }}>
-          <ResponsiveContainer width="100%\" height={320}>
+          <ResponsiveContainer width="100%" height={320}>
             <BarChart
               data={riskChartData}
               margin={{ top: 10, right: 20, left: 10, bottom: 10 }}
