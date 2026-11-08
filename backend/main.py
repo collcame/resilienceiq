@@ -1,5 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+import simulation
+import planning
 
 app = FastAPI(title="ResilienceIQ API", version="0.1.0")
 
